@@ -1,0 +1,201 @@
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FaBars, FaEnvelope, FaUserCircle, FaBell } from "react-icons/fa";
+import { FiMessageSquare } from "react-icons/fi";
+import axios from "axios";
+import "../../styles/banner.css";
+import "../../styles/navbar.css";
+import "../../styles/landingpage.css"
+
+const LandingPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Navbar logic
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const menuRef = useRef(null);
+
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("fillInToken");
+ 
+  }, [location]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+
+
+  // Modal for portal switch
+  const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    const portal = sessionStorage.getItem("selectedPortal");
+    if (portal !== "candidate") {
+      // setShowModal(true);
+    }
+  }, []);
+
+  return (
+    <>
+      {/* ======= Navbar (No import) ======= */}
+      {/* Desktop Navbar */}
+      <section className="nav-main py-4 d-lg-block d-none">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-3">
+              <img
+                onClick={() => navigate("/")}
+                className="img-fluid logo"
+                src="/images/logo.png"
+                alt="Logo"
+              />
+            </div>
+            <div className="col-9 text-end position-relative">
+              <div className="btn-nav">
+                {isLoggedIn ? (
+              <>
+              </>
+                ) : (
+                  <>
+                    {/* <button
+                      onClick={() =>
+                        navigate("/candidate/", {
+                        })
+                      }
+                      className="btn-login"
+                    >
+                      Candidate
+                    </button>
+                    <button
+                      onClick={() => navigate("/recruiter")}
+                      className="btn-register"
+                    >
+                      Recruiter
+                    </button> */}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile Navbar */}
+      <section className="nav-main py-2 d-lg-none d-block">
+        <div className="container">
+          <div className="row">
+            <div className="col-5">
+              <img
+                onClick={() => navigate("/candidate/")}
+                className="img-fluid"
+                src="/images/logo.png"
+                alt="Logo"
+              />
+            </div>
+        
+          </div>
+        </div>
+      </section>
+
+  
+
+      {/* ======= Hero Section ======= */}
+      {/* <section className="hero-section landing-page" >
+        <div className="container">
+    
+
+          <h1>
+            Get The Right Job
+            <br />
+            You Deserve
+          </h1>
+          <p className="mt-3">
+            1,30,420 jobs listed here! Your dream job is waiting.
+          </p>
+
+
+            <h3 className="responsive-text">
+Find the right dental professionals to help your clinic grow and thrive. Whether you're looking for experienced dentists, skilled assistants, or reliable support staff, our platform connects you with qualified candidates who are ready to join your team.
+</h3>
+ <>
+                    <button
+                      onClick={() =>
+                        navigate("/candidate/", {
+                        })
+                      }
+                      className="btn-login"
+                    >
+             Dental Staff
+                    </button>
+                    <button
+                      onClick={() => navigate("/recruiter")}
+                      className="btn-register"
+                    >
+     Practice Owner
+                    </button>
+                  </>
+
+        </div>
+      </section> */}
+
+      <section className="hero-section landing-page">
+  <div className="container">
+    <h1>
+      Get The Right Job
+      <br />
+      You Deserve
+    </h1>
+
+    <p className="mt-3">
+      1,30,420 jobs listed here! Your dream job is waiting.
+    </p>
+
+    <h3 className="responsive-text">
+      Find the right dental professionals to help your clinic grow and thrive.
+      Whether you're looking for experienced dentists, skilled assistants, or
+      reliable support staff, our platform connects you with qualified
+      candidates who are ready to join your team.
+    </h3>
+
+    <div>
+      <button onClick={() => navigate("/candidate/")} className="btn-login">
+        Dental Staff
+      </button>
+      <button onClick={() => navigate("/recruiter")} className="btn-register">
+        Practice Owner
+      </button>
+    </div>
+  </div>
+</section>
+
+
+  {/* ======= stripe ======= */}
+      <section className="dream-job-section">
+       <div className="container">
+     <h3 className="mb-4">
+   <strong>
+      Your Dream Jobs Are Waiting
+   </strong>
+      </h3>
+    <p className="text-muted mb-3">
+      Over 1 million interactions, 1200 success stories. Make yours now.
+    </p>
+    <div className="d-flex flex-wrap justify-content-center">
+      {/* <button className="btn btn-white">Search Jobs</button> */}
+      {/* <button className="btn btn-blue" >Apply Job Now</button> */}
+    </div>
+       </div>
+      </section>
+    </>
+  );
+};
+
+export default LandingPage;
